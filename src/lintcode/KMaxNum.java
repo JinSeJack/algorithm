@@ -7,7 +7,7 @@ public class KMaxNum {
 	 * @param n
 	 * @param low
 	 * @param high
-	 * @param k
+	 * @param k 
 	 * @return
 	 */
 	public static int quickSort(int n[], int low, int high, int k){
