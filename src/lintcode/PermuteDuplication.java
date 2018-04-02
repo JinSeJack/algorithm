@@ -3,7 +3,7 @@ package lintcode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Permute {
+public class PermuteDuplication {
 
 	public List<List<Integer>> permute(int[] nums) {
 		List<List<Integer>> r = new ArrayList<List<Integer>>();
@@ -13,8 +13,7 @@ public class Permute {
 		}
 
 		List<Integer> t = new ArrayList<Integer>();
-//		getPermute(r, nums, 0, nums.length);
-		myPermutation(r, nums, 0, nums.length - 1);
+		getPermute(r, nums, 0, nums.length - 1);
 		return r;
 	}
 
@@ -27,14 +26,22 @@ public class Permute {
 				t.add(i);
 			}
 			r.add(t);
-			return;
 		} else {
-			for (int i = k; i < l; i++) {
-				swap(nums, k, i);
-				getPermute(r, nums, k + 1, l);
-				swap(nums, k, i);
+			for (int i = k; i <= l; i++) {
+				if (isok(nums, k, i)) {
+					swap(nums, k, i);
+					getPermute(r, nums, k + 1, l);
+					swap(nums, k, i);
+				}
 			}
 		}
+	}
+
+	private boolean isok(int[] nums, int k, int i) {
+		for (int j = k; j < i; j++)
+			if (nums[j] == nums[i])
+				return false;
+		return true;
 	}
 
 	private void swap(int[] nums, int k, int i) {
@@ -44,26 +51,9 @@ public class Permute {
 		nums[i] = a;
 	}
 
-	public void myPermutation(List<List<Integer>> r, int[] nums, int k, int l) {
-		if(k == l){
-			add(r, nums);
-			return;
-		}
-		
-	}
-
-	private void add(List<List<Integer>> r, int[] nums) {
-		// TODO Auto-generated method stub
-		List<Integer> t = new ArrayList<Integer>();
-		for (int i : nums) {
-			t.add(i);
-		}
-		r.add(t);
-	}
-
 	public static void main(String[] args) {
-		Permute p = new Permute();
-		int n[] = { 1, 2, 3, 4};
+		PermuteDuplication p = new PermuteDuplication();
+		int n[] = { 1, 2, 2 };
 		p.permute(n);
 
 	}
